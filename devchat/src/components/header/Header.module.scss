@@ -1,0 +1,21 @@
+.header-container {
+  background: #497541;
+  height: 70px;
+  width: 100%;
+  border-radius: 10px;
+  .logo {
+    // margin-top: 10px;
+    margin-left: 30px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .name {
+    font-size: 30px;
+    font-weight: 400;
+    color: white;
+    position: absolute;
+    right: 50px;
+  }
+  //   padding: 12px;
+}

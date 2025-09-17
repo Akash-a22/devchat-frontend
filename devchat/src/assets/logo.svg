@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">DevChat alternative icon</title>
+  <desc id="desc">Two chat bubbles overlapped with code brackets inside</desc>
+
+  <!-- back chat bubble -->
+  <path d="M14 20c0-6 5-11 11-11h10c6 0 11 5 11 11v6c0 6-5 11-11 11h-7l-6 5v-5h-3c-6 0-11-5-11-11v-6z"
+        fill="white" stroke="black" stroke-width="2" opacity="0.8"/>
+
+  <!-- front chat bubble -->
+  <path d="M20 28c0-6 5-11 11-11h10c6 0 11 5 11 11v6c0 6-5 11-11 11h-7l-6 5v-5h-3c-6 0-11-5-11-11v-6z"
+        fill="white" stroke="black" stroke-width="2"/>
+
+  <!-- code brackets -->
+  <g transform="translate(32,30)" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- left bracket -->
+    <path d="M-8 -3 L-11 0 L-8 3"/>
+    <!-- right bracket -->
+    <path d="M12 -3 L15 0 L12 3"/>
+    <!-- slash -->
+    <path d="M-1 -5 L5 5"/>
+  </g>
+</svg>

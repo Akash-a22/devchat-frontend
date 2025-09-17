@@ -1,0 +1,13 @@
+.separator {
+  width: 2px;
+  height: 12rem;
+  background-color: #000;
+  margin: 0 1rem;
+}
+.room-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 2rem;
+}
