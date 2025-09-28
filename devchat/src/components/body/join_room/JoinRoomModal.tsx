@@ -10,15 +10,10 @@ import {
 } from "@mui/material";
 import type { FormData, Props } from "../../../type/type";
 
-export const CreateRoomModal: React.FC<Props> = ({
-  open,
-  onClose,
-  onSubmit,
-}) => {
+export const JoinRoomModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
   const [form, setForm] = React.useState<FormData>({
     username: "",
-    roomName: "",
-    size: 1,
+    key: "",
   });
 
   const [error, setError] = React.useState<string>("");
@@ -28,21 +23,22 @@ export const CreateRoomModal: React.FC<Props> = ({
   };
 
   const handleSubmit = () => {
-    const { username, roomName, size } = form;
+    const { username, key } = form;
+    console.log(username, key);
 
-    if (!username.trim() || !roomName?.trim() || !size) {
+    if (!username.trim() || !key?.trim()) {
       setError("Please fill all the fields.");
       return;
     }
 
-    setError(""); // Clear previous error
+    setError("");
     onSubmit(form);
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create a New Room</DialogTitle>
+      <DialogTitle>Join a Room</DialogTitle>
       <DialogContent>
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
@@ -61,23 +57,12 @@ export const CreateRoomModal: React.FC<Props> = ({
         />
         <TextField
           margin="dense"
-          label="Room Name"
-          name="roomName"
+          label="key"
+          name="key"
           fullWidth
           size="small"
           variant="outlined"
-          value={form.roomName}
-          onChange={handleChange}
-        />
-        <TextField
-          margin="dense"
-          label="Size"
-          name="size"
-          size="small"
-          type="number"
-          variant="outlined"
-          fullWidth
-          value={form.size}
+          value={form.key}
           onChange={handleChange}
         />
       </DialogContent>
@@ -86,7 +71,7 @@ export const CreateRoomModal: React.FC<Props> = ({
           Cancel
         </Button>
         <Button onClick={handleSubmit} variant="contained" color="primary">
-          Create
+          Join
         </Button>
       </DialogActions>
     </Dialog>

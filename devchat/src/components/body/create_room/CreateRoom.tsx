@@ -1,14 +1,46 @@
 import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { CreateRoomModal } from "./CreateRoomModal";
-import type { FormData } from "./type";
+import { useCreateRoomMutation } from "../../../store/room/roomapi";
+import { useDispatch } from "react-redux";
+import { createRoom } from "../../../store/room/roomSlice";
+import { useNavigate } from "react-router-dom";
+import { currentUser } from "../../../store/user/userSlice";
+import type { FormData } from "../../../type/type";
 
 export const CreateRoom: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [saveRoom] = useCreateRoomMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (form: FormData) => {
-    console.log("Creating room with data:", form);
-    // api call  ... create room
+  const handleSubmit = async (form: FormData) => {
+    const room = {
+      name: form.roomName,
+      size: form.size,
+      users: [
+        {
+          name: form.username,
+        },
+      ],
+    };
+    const responseData = await saveRoom(room).unwrap();
+    if (responseData && responseData?.code === 201) {
+      dispatch(createRoom(responseData?.responseObject));
+      dispatch(currentUser(responseData?.responseObject?.users?.[0]));
+      const key = responseData?.responseObject?.key;
+      localStorage.setItem(
+        "roomId",
+        responseData?.responseObject?.roomId ?? ""
+      );
+      localStorage.setItem(
+        "currentUserId",
+        responseData?.responseObject?.users?.[0]?.userId || ""
+      );
+      if (key) {
+        navigate(`/room/${key}`);
+      }
+    }
   };
 
   return (
@@ -20,7 +52,7 @@ export const CreateRoom: React.FC = () => {
 
       <CreateRoomModal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => setOpen(!open)}
         onSubmit={(form) => handleSubmit(form)}
       />
     </div>
