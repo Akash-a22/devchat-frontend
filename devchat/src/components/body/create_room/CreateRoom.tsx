@@ -7,6 +7,7 @@ import { createRoom } from "../../../store/room/roomSlice";
 import { useNavigate } from "react-router-dom";
 import { currentUser } from "../../../store/user/userSlice";
 import type { FormData } from "../../../type/type";
+import { showToast } from "../../util/component/ToastMessage";
 
 export const CreateRoom: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -40,6 +41,8 @@ export const CreateRoom: React.FC = () => {
       if (key) {
         navigate(`/room/${key}`);
       }
+    } else if (responseData?.code === 400) {
+      showToast("error", responseData?.responseObject?.[0] || "");
     }
   };
 
