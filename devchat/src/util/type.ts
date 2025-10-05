@@ -1,9 +1,10 @@
 export interface Message {
   id?: string;
   userName?: string;
+  roomId?: string;
   userId?: string;
-  message?: string;
-  time: string;
+  value?: string;
+  createdOn?: string;
 }
 
 export interface Props {
@@ -33,7 +34,7 @@ export interface Room {
 }
 export interface User {
   name: string;
-  userId?: string;
+  userId?: string | "";
   status?: string;
   token?: string;
 }
@@ -49,4 +50,23 @@ export interface UserResponse {
   status: string;
   code: number;
   responseObject: User | string[];
+}
+export interface RoomEvent {
+  roomId: string;
+  userId: string;
+  type: "JOIN" | "LEAVE" | "";
+  userName?: string;
+}
+
+export interface ChatResponse {
+  message: string;
+  status: string;
+  code: number;
+  responseObject: Message[] | string[];
+}
+
+export interface MessageEvent {
+  id: string;
+  roomId: string;
+  type: string;
 }

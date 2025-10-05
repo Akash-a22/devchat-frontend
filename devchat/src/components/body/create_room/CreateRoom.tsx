@@ -5,9 +5,11 @@ import { useCreateRoomMutation } from "../../../store/room/roomapi";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../../store/room/roomSlice";
 import { useNavigate } from "react-router-dom";
-import { currentUser } from "../../../store/user/userSlice";
-import type { FormData } from "../../../type/type";
+import { addUser } from "../../../store/user/userSlice";
+import type { FormData, RoomEvent } from "../../../util/type";
 import { showToast } from "../../util/component/ToastMessage";
+import { connectToRoom, joinRoomWS } from "../../../socket/socketConfig";
+import { clearMessages } from "../../../store/chat/chatSlice";
 
 export const CreateRoom: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -28,16 +30,22 @@ export const CreateRoom: React.FC = () => {
     const responseData = await saveRoom(room).unwrap();
     if (responseData && responseData?.code === 201) {
       dispatch(createRoom(responseData?.responseObject));
-      dispatch(currentUser(responseData?.responseObject?.users?.[0]));
+      dispatch(clearMessages());
+      const roomId = responseData?.responseObject?.roomId || "";
+      const user = responseData?.responseObject?.users?.[0];
+      dispatch(addUser(user));
       const key = responseData?.responseObject?.key;
-      localStorage.setItem(
-        "roomId",
-        responseData?.responseObject?.roomId ?? ""
-      );
-      localStorage.setItem(
-        "currentUserId",
-        responseData?.responseObject?.users?.[0]?.userId || ""
-      );
+      localStorage.setItem("roomId", roomId);
+      localStorage.setItem("currentUserId", user?.userId || "");
+      localStorage.setItem("token", user.token);
+      const roomEvent: RoomEvent = {
+        roomId,
+        type: "JOIN",
+        userId: user?.userId,
+        userName: user?.name,
+      };
+      connectToRoom(roomId);
+      joinRoomWS(roomEvent);
       if (key) {
         navigate(`/room/${key}`);
       }

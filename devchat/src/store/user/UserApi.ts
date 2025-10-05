@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { UserResponse } from "../../type/type";
+import type { UserResponse } from "../../util/type";
+import { apiUrl } from "../../util/constants";
 
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/v1",
+    baseUrl: apiUrl,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -16,7 +17,7 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     removeUserfromRoom: builder.mutation<UserResponse, string>({
       query: (userId) => ({
-        url: `/user/${userId}`,
+        url: `v1/user/${userId}`,
         method: "DELETE",
       }),
     }),

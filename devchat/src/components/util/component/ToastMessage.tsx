@@ -12,11 +12,11 @@ export const showToast = (
 ) => {
   const config: ToastOptions = {
     position: "top-center",
-    autoClose: 1500,
-    hideProgressBar: false,
-    pauseOnHover: true,
+    autoClose: 1000,
+    hideProgressBar: true,
+    pauseOnHover: false,
     className: "toastify-custom-toast",
-    draggable: true,
+    draggable: false,
     ...options,
   };
 

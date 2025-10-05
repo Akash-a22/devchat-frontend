@@ -2,7 +2,8 @@
 import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import roomReducer from "./room/roomSlice";
 import userReducer from "./user/userSlice";
-import { apis } from "./apiRegistry"; // [roomApi, userApi]
+import { apis } from "./apiRegistry";
+import chatReducer from "./chat/chatSlice";
 
 const apiReducers = Object.fromEntries(
   apis.map((api) => [api.reducerPath, api.reducer])
@@ -11,6 +12,7 @@ const apiReducers = Object.fromEntries(
 const rootReducer = {
   room: roomReducer,
   user: userReducer,
+  chat: chatReducer,
   ...apiReducers,
 };
 

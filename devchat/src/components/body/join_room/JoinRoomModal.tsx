@@ -8,7 +8,7 @@ import {
   TextField,
   Alert,
 } from "@mui/material";
-import type { FormData, Props } from "../../../type/type";
+import type { FormData, Props } from "../../../util/type";
 
 export const JoinRoomModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
   const [form, setForm] = React.useState<FormData>({

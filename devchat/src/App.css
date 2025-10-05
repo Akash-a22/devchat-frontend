@@ -1,6 +1,6 @@
 .toastify-custom-toast {
-    background-color: rgba(0, 0, 0, 0.8) !important;
-    color: #fff !important;
+    background-color: #ECEDEC !important;
+    color: #272927 !important;
     backdrop-filter: blur(4px);
 
 }
